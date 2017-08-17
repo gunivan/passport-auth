@@ -187,8 +187,6 @@ function auth(options) {
       Object.assign(passportSetup, settings.options);
     }
 
-    toolset.log("passportSetup", passportSetup);
-
     // Execute the passport strategy
     //passport.use(new (this.map[type])(passportSetup, settings.methods.auth));
     try {
@@ -197,7 +195,6 @@ function auth(options) {
         scope.onAuth(req, type, scope.uniqueIds[type], accessToken, refreshToken, scope.returnRaw ? profile : scope.preparseProfileData(type, profile), done);
       }));
     } catch (e) {
-      console.log('passportSetup', passportSetup);
       toolset.error('passportSetup', 'Error: ' + e.message + '\n' + e.stack);
     }
 
@@ -221,12 +218,7 @@ function auth(options) {
   // The response is not uniform, making it harder to manage consistent data format accross all the services.
   // 
   function preparseProfileData(type, profile) {
-
-    toolset.log("Profile", profile);
-
-
     let data = profile._json || profile;
-
     switch (type) {
       default:
         return data;
