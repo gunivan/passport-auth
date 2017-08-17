@@ -183,6 +183,10 @@ function auth(options) {
       passportSetup = Object.assign(passportSetup, this.specialCases[type].setup);
     }
 
+    if (settings.options && Object.keys(settings.options).length) {
+      Object.assign(passportSetup, settings.options);
+    }
+
     toolset.log("passportSetup", passportSetup);
 
     // Execute the passport strategy
@@ -221,7 +225,7 @@ function auth(options) {
     toolset.log("Profile", profile);
 
 
-    let data = profile._json;
+    let data = profile._json || profile;
 
     switch (type) {
       default:

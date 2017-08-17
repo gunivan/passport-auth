@@ -91,6 +91,9 @@ module.exports = function (app, config) {
         callback: 	"/auth/facebook/callback",  // The Oauth callback url as specified in your facebook app's settings
         success:	'/',                        // Where to redirect the user once he's logged in
         fail:		'/auth/facebook/fail'       // Where to redirect the user if the login failed or was canceled.
+      },
+      options: {
+        profileFields: ['id', 'displayName', 'photos', 'email']
       }
     },
     twitter:	{
