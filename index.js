@@ -136,7 +136,6 @@ function auth(options) {
     return this.url + path
   }
   function setup(type, settings) {
-    //toolset.log("Setting up:", type);
     let scope = this;
     if (!this.map[type]) {
       toolset.error("Error!", 'type "' + type + '" is not supported.');
@@ -195,7 +194,7 @@ function auth(options) {
         scope.onAuth(req, type, scope.uniqueIds[type], accessToken, refreshToken, scope.returnRaw ? profile : scope.preparseProfileData(type, profile), done);
       }));
     } catch (e) {
-      toolset.error('passportSetup', 'Error: ' + e.message + '\n' + e.stack);
+      toolset.error('passportSetup:Error', 'Error: ' + e.message + '\n' + e.stack);
     }
 
     let strategyName = type;
