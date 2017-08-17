@@ -127,6 +127,13 @@ function auth(options) {
       this.setup(type, this.settings[type]);
     }
   }
+  function getUrl(path) {
+    //keep origin url with domain
+    if (path && (path.startsWith('http') || path.startsWith('https'))) {
+      return path
+    }
+    return this.url + path
+  }
   function setup(type, settings) {
     //toolset.log("Setting up:", type);
     let scope = this;
@@ -139,7 +146,7 @@ function auth(options) {
     let passportSetup = {
       clientID: settings.settings.clientID,
       clientSecret: settings.settings.clientSecret,
-      callbackURL: this.url + settings.url.callback,
+      callbackURL: getUrl(settings.url.callback),
       passReqToCallback: true
     };
     // Update the letiable names if needed, because Passport is unable to standardize things apparently.
@@ -200,8 +207,8 @@ function auth(options) {
     // Setup the callback url (/auth/:service/callback)
     toolset.log("strategyName", strategyName + ', url:' + settings.url.callback);
     this.app.get(settings.url.callback, passport.authenticate(strategyName, {
-      successRedirect: settings.url.success,
-      failureRedirect: settings.url.fail,
+      successRedirect: getUrl(settings.url.success),
+      failureRedirect: getUrl(settings.url.fail),
       failureFlash: true
     }));
   }
